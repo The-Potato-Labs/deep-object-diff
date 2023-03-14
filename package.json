@@ -4,9 +4,10 @@
   "description": "Deep diffs two objects, including nested structures of arrays and objects, and return the difference.",
   "main": "cjs/index.js",
   "module": "mjs/index.js",
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./mjs/index.js",
+      "import": "./dist/mjs/index.js",
       "require": "./cjs/index.js",
       "types": "./index.d.ts"
     }

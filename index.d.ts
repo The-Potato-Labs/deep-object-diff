@@ -1,4 +1,4 @@
-export function diff (originalObj: object, updatedObj: object, diffableKeys?: Set<string>): object
+export function diff (originalObj: object, updatedObj: object, diffableKeys?: Set<string>, includeKeys?: Set<string>): object
 
 export function addedDiff (originalObj: object, updatedObj: object): object
 

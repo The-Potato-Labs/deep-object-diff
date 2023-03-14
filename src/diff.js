@@ -1,7 +1,7 @@
 import { isDate, isEmptyObject, isObject, hasOwnProperty, makeObjectWithoutPrototype } from './utils.js';
 
-const diff = (lhs, rhs, diffableKeys) => {
-  if (lhs === rhs) return {}; // equal return no diff
+const diff = (lhs, rhs, diffableKeys, includeKeys) => {
+  if (lhs === rhs && (!includeKeys || !isObject(lhs))) return {}; // equal return no diff
 
   if (!isObject(lhs) || !isObject(rhs)) return rhs; // return updated rhs
 
@@ -22,6 +22,11 @@ const diff = (lhs, rhs, diffableKeys) => {
   const isRHSACollection = Array.isArray(rhs) || rhs instanceof Set || rhs instanceof Map;
   return Object.keys(rhs).reduce((acc, key) => {
 
+    if (includeKeys && includeKeys.has(key)) {
+      acc[key] = rhs[key];
+      return acc;
+    }
+
     if (!isRHSACollection && diffableKeys && !diffableKeys.has(key)) {
       return acc;
     }
@@ -31,7 +36,7 @@ const diff = (lhs, rhs, diffableKeys) => {
       return acc;
     } 
 
-    const difference = diff(lhs[key], rhs[key], diffableKeys);
+    const difference = diff(lhs[key], rhs[key], diffableKeys, includeKeys);
 
     // If the difference is empty, and the lhs is an empty object or the rhs is not an empty object
     if (isEmptyObject(difference) && !isDate(difference) && (isEmptyObject(lhs[key]) || !isEmptyObject(rhs[key])))
