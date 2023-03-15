@@ -15,7 +15,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "rm -rf dist && babel src -d dist/cjs && node scripts/build.mjs",
-    "prepublish": "yarn build",
+    "prepublish": "npm run build",
     "lint": "eslint src",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
