@@ -13,6 +13,7 @@
   },
   "types": "./index.d.ts",
   "scripts": {
+    "prepare": "npm run build",
     "build": "rm -rf dist && babel src -d dist/cjs && node scripts/build.mjs",
     "prepublish": "yarn build",
     "lint": "eslint src",
