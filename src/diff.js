@@ -43,9 +43,10 @@ const diff = (lhs, rhs, diffableKeys, wholeDiffableKeys, parentKey) => {
 
     if (wholeDiffableKeys.has(parentKey)) {
       console.log("found difference with parent key ", parentKey, " for current key ", key);
-      console.log("acc:", acc);
-      acc[parentKey] = rhs;
-      return acc;
+      // console.log("acc:", acc);
+      // acc[parentKey] = rhs;
+      return rhs;
+      // return acc;
     }
 
     acc[key] = difference // return updated key
