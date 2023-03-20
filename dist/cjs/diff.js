@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _utils = require("./utils.js");
 
-const diff = (lhs, rhs, diffableKeys) => {
+const diff = (lhs, rhs, diffableKeys, wholeDiffableKeys, parentKey) => {
   if (lhs === rhs) return {}; // equal return no diff
 
   if (!(0, _utils.isObject)(lhs) || !(0, _utils.isObject)(rhs)) return rhs; // return updated rhs
@@ -32,14 +32,24 @@ const diff = (lhs, rhs, diffableKeys) => {
     }
 
     if (!(0, _utils.hasOwnProperty)(lhs, key)) {
+      if (wholeDiffableKeys.has(parentKey)) {
+        acc[parentKey] = rhs;
+        return acc;
+      }
+
       acc[key] = rhs[key]; // return added r key
 
       return acc;
     }
 
-    const difference = diff(lhs[key], rhs[key], diffableKeys); // If the difference is empty, and the lhs is an empty object or the rhs is not an empty object
+    const difference = diff(lhs[key], rhs[key], diffableKeys, wholeDiffableKeys, key); // If the difference is empty, and the lhs is an empty object or the rhs is not an empty object
 
     if ((0, _utils.isEmptyObject)(difference) && !(0, _utils.isDate)(difference) && ((0, _utils.isEmptyObject)(lhs[key]) || !(0, _utils.isEmptyObject)(rhs[key]))) return acc; // return no diff
+
+    if (wholeDiffableKeys.has(parentKey)) {
+      acc[parentKey] = rhs;
+      return acc;
+    }
 
     acc[key] = difference; // return updated key
 
