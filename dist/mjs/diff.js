@@ -28,8 +28,7 @@ const diff = (lhs, rhs, diffableKeys, wholeDiffableKeys, parentKey) => {
 
     if (!hasOwnProperty(lhs, key)){
       if (wholeDiffableKeys.has(parentKey)) {
-        acc[parentKey] = rhs;
-        return acc;
+        return rhs;
       }
       acc[key] = rhs[key]; // return added r key
       return acc;
@@ -42,8 +41,7 @@ const diff = (lhs, rhs, diffableKeys, wholeDiffableKeys, parentKey) => {
       return acc; // return no diff
 
     if (wholeDiffableKeys.has(parentKey)) {
-      acc[parentKey] = rhs;
-      return acc;
+      return rhs;
     }
 
     acc[key] = difference // return updated key
