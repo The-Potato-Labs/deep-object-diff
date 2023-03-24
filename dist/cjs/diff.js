@@ -33,8 +33,7 @@ const diff = (lhs, rhs, diffableKeys, wholeDiffableKeys, parentKey) => {
 
     if (!(0, _utils.hasOwnProperty)(lhs, key)) {
       if (wholeDiffableKeys.has(parentKey)) {
-        acc[parentKey] = rhs;
-        return acc;
+        return rhs;
       }
 
       acc[key] = rhs[key]; // return added r key
@@ -47,8 +46,7 @@ const diff = (lhs, rhs, diffableKeys, wholeDiffableKeys, parentKey) => {
     if ((0, _utils.isEmptyObject)(difference) && !(0, _utils.isDate)(difference) && ((0, _utils.isEmptyObject)(lhs[key]) || !(0, _utils.isEmptyObject)(rhs[key]))) return acc; // return no diff
 
     if (wholeDiffableKeys.has(parentKey)) {
-      acc[parentKey] = rhs;
-      return acc;
+      return rhs;
     }
 
     acc[key] = difference; // return updated key
